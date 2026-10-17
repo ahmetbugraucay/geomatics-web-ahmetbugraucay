@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Geomatics Web Page</title>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #eef2f6;
+      color: #1c2a39;
+      line-height: 1.5;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      background: linear-gradient(135deg, #1f4e79, #3a86b8);
+      color: white;
+      padding: 24px 5%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: 4px 0 0 0; }
+
+    .portrait {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      border: 3px solid white;
+    }
+
+    /* ---------- Navigation ---------- */
+    nav { background-color: #1b2b3a; }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 5%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+    }
+
+    nav a:hover { background-color: #2f6da3; }
+
+    /* ---------- Layout: main + aside ---------- */
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 5%;
+      align-items: flex-start;
+    }
+
+    main { flex: 3 1 520px; min-width: 0; }
+    aside { flex: 1 1 280px; min-width: 0; }
+
+    /* ---------- CSS classes ---------- */
+    .card {
+      background-color: white;
+      border: 1px solid #c9d6e2;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      margin: 0;
+      padding: 10px 16px;
+      background-color: #d9e8f6;
+      font-size: 1.15rem;
+    }
+
+    .card.green h2 { background-color: #dff0e2; }
+
+    .card-body { padding: 12px 16px; }
+
+    .highlight {
+      color: #b00020;
+      font-weight: bold;
+      background-color: #fff3cd;
+    }
+
+    /* ---------- Experience ---------- */
+    .job {
+      border-left: 4px solid #1f4e79;
+      padding-left: 12px;
+      margin-bottom: 16px;
+    }
+
+    .job:last-child { margin-bottom: 0; }
+
+    .job h3 { margin: 0; font-size: 1.05rem; }
+
+    .job-meta {
+      margin: 2px 0 6px 0;
+      font-size: 0.9rem;
+      color: #5a6b7d;
+    }
+
+    .job p { margin: 0; }
+
+    /* ---------- Skills ---------- */
+    .tag {
+      display: inline-block;
+      background-color: #d9e8f6;
+      border: 1px solid #9fb3c8;
+      border-radius: 14px;
+      padding: 3px 12px;
+      margin: 0 6px 6px 0;
+      font-size: 0.9rem;
+    }
+
+    .subtitle {
+      margin: 14px 0 6px 0;
+      font-size: 1rem;
+    }
+
+    .subtitle:first-child { margin-top: 0; }
+
+    /* ---------- Useful links list ---------- */
+    .link-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .link-item:last-child { margin-bottom: 0; }
+
+    .link-icon {
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .link-desc {
+      display: block;
+      font-size: 0.85rem;
+      color: #5a6b7d;
+    }
+
+    /* ---------- Table ---------- */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #9fb3c8;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #1f4e79;
+      color: white;
+    }
+
+    caption {
+      font-weight: bold;
+      padding-bottom: 8px;
+    }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .gallery figure { flex: 1 1 220px; margin: 0; }
+
+    .gallery img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center 35%;
+      border-radius: 6px;
+      border: 1px solid #9fb3c8;
+    }
+
+    .gallery figcaption {
+      text-align: center;
+      font-size: 0.9rem;
+      padding-top: 4px;
+    }
+
+    /* ---------- Form ---------- */
+    .form-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .form-grid > div { flex: 1 1 240px; }
+
+    .form-grid label { display: inline-block; margin-bottom: 4px; }
+
+    .form-grid input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #9fb3c8;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .radio-list label { display: block; margin-bottom: 4px; }
+
+    button {
+      background-color: #0b57c9;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .contact-line { margin: 16px 0 0 0; }
+
+    /* ---------- Iframe ---------- */
+    iframe {
+      width: 100%;
+      border: 1px solid #9fb3c8;
+      background-color: #f4f6f8;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background-color: #1b2b3a;
+      color: white;
+      text-align: center;
+      padding: 14px 5%;
+    }
+
+    footer p { margin: 0; }
+  </style>
+</head>
+<body>
+
+  <header id="home">
+    <img src="vesikalik.jpg" alt="Portrait of Ahmet Buğra Üçay" class="portrait">
+    <div>
+      <h1>Ahmet Buğra Üçay</h1>
+      <p>Geomatics Engineering Student</p>
+      <p>Geomatics student, intern surveying engineer, and electric guitarist.</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://ge.ikcu.edu.tr/" target="_blank">İKÇÜ</a></li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+
+    <main>
+
+      <section id="about" class="card">
+        <h2>About Me</h2>
+        <div class="card-body">
+          <p>
+            I was born in Amasya in 2000. I completed my primary and middle
+            school education in Gelibolu, then went to high school in Amasya.
+            I study Geomatics Engineering at İzmir Katip Çelebi University and
+            expect to graduate in 2027. I now live in Amasya, where I work as
+            an intern geomatics engineer at Gökçe Harita Mühendislik. My main
+            academic interest is <span class="highlight">GNSS</span>, because
+            accurate positioning is the foundation of every map and survey.
+          </p>
+          <p>
+            Outside of engineering, I am a musician. I have played the electric
+            guitar for more than ten years, performed in various bands, and
+            stepped on stage more than 500 times during my university years.
+          </p>
+        </div>
+      </section>
+
+      <section id="experience" class="card">
+        <h2>Experience</h2>
+        <div class="card-body">
+          <div class="job">
+            <h3>Intern Geomatics Engineer – Gökçe Harita Mühendislik</h3>
+            <p class="job-meta">July 2026 – present · Amasya, Turkey</p>
+            <p>
+              Field surveying and engineering measurement work, including
+              building boundary measurement with a total station and learning
+              the resection (free station) method.
+            </p>
+          </div>
+          <div class="job">
+            <h3>Intern – TCDD 3rd Regional Directorate, Real Estate Service</h3>
+            <p class="job-meta">July 2025 · 1 month · İzmir, Turkey</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="certificates" class="card green">
+        <h2>Skills and Certificates</h2>
+        <div class="card-body">
+          <h3 class="subtitle">Skills</h3>
+          <p>
+            <span class="tag">NetCAD</span>
+            <span class="tag">AutoCAD</span>
+            <span class="tag">Field Surveying</span>
+            <span class="tag">Total Station</span>
+            <span class="tag">GNSS</span>
+          </p>
+
+          <h3 class="subtitle">Certificates</h3>
+          <ul>
+            <li>İHA-1 Commercial Drone (UAV) Certificate</li>
+            <li>Esri Training Certificate</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="courses" class="card">
+        <h2>Courses</h2>
+        <div class="card-body">
+          <table>
+            <caption>Courses This Semester</caption>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Name</th>
+              <th>Type</th>
+              <th>ECTS</th>
+            </tr>
+            <tr>
+              <td>GE301</td>
+              <td>Photogrammetry I</td>
+              <td>Compulsory</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>GE302</td>
+              <td>Geographic Information Systems</td>
+              <td>Compulsory</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>GE304</td>
+              <td>Adjustment Computations</td>
+              <td>Compulsory</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>GE403</td>
+              <td>Summer Internship II</td>
+              <td>Compulsory</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>GE418</td>
+              <td>Digital Photogrammetry</td>
+              <td>Elective</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>GE420</td>
+              <td>Web Cartography</td>
+              <td>Elective</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>ENG401</td>
+              <td>Interdisciplinary Engineering Design Project</td>
+              <td>Compulsory</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td colspan="3">Total ECTS</td>
+              <td>34</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <section id="interests" class="card">
+        <h2>My Geomatics Interests</h2>
+        <div class="card-body">
+          <ul>
+            <li>GNSS
+              <ul>
+                <li>RTK and static positioning</li>
+                <li>Coordinate systems and datums</li>
+                <li>Error sources and corrections</li>
+              </ul>
+            </li>
+            <li>Photogrammetry</li>
+            <li>UAV (drone) mapping</li>
+            <li>LiDAR</li>
+            <li>Remote Sensing</li>
+            <li>Web Mapping</li>
+          </ul>
+        </div>
+      </section>
+
+      <article class="card green">
+        <h2>My Web GIS Learning Plan</h2>
+        <div class="card-body">
+          <ol type="I">
+            <li>Learn HTML and CSS basics</li>
+            <li>Understand coordinate systems and map projections</li>
+            <li>Learn how web maps display tiles and layers</li>
+            <li>Build a simple web map with Leaflet</li>
+            <li>Publish my own GIS data on the web</li>
+          </ol>
+        </div>
+      </article>
+
+      <section id="gallery" class="card">
+        <h2>Field Work Gallery</h2>
+        <div class="card-body">
+          <div class="gallery">
+            <figure>
+              <img src="gnss_cors.jpg" alt="GNSS rover on a pole connected to CORS during field measurement">
+              <figcaption>GNSS rover with CORS in the field</figcaption>
+            </figure>
+            <figure>
+              <img src="total_station.jpg" alt="Total station set up on a tripod">
+              <figcaption>Total station setup</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="card">
+        <h2>Contact Me</h2>
+        <div class="card-body">
+          <form>
+            <div class="form-grid">
+              <div>
+                <label for="fullname">Name:</label><br>
+                <input type="text" id="fullname" name="fullname" placeholder="Your name">
+
+                <label for="studentno">Student Number:</label><br>
+                <input type="text" id="studentno" name="studentno" placeholder="e.g. 123456">
+              </div>
+
+              <div class="radio-list">
+                <p><strong>Favorite Geomatics Field:</strong></p>
+                <label for="gis"><input type="radio" id="gis" name="field" value="GIS"> GIS</label>
+                <label for="rs"><input type="radio" id="rs" name="field" value="Remote Sensing"> Remote Sensing</label>
+                <label for="photo"><input type="radio" id="photo" name="field" value="Photogrammetry"> Photogrammetry</label>
+                <label for="carto"><input type="radio" id="carto" name="field" value="Cartography"> Cartography</label>
+              </div>
+            </div>
+
+            <button type="submit">Submit</button>
+          </form>
+
+          <p class="contact-line">
+            You can also find me on
+            <a href="https://www.linkedin.com/in/ahmetbugraucay" target="_blank">LinkedIn</a>.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <aside>
+      <section class="card green">
+        <h2>Useful Links</h2>
+        <div class="card-body">
+          <ul class="link-list">
+            <li class="link-item">
+              <span class="link-icon">🏫</span>
+              <div>
+                <a href="https://ge.ikcu.edu.tr/" target="_blank">İKÇÜ Geomatics Engineering</a>
+                <span class="link-desc">Department of Geomatics Engineering, İzmir Katip Çelebi University.</span>
+              </div>
+            </li>
+            <li class="link-item">
+              <span class="link-icon">🗺️</span>
+              <div>
+                <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a>
+                <span class="link-desc">A free and editable map of the world.</span>
+              </div>
+            </li>
+            <li class="link-item">
+              <span class="link-icon">🌐</span>
+              <div>
+                <a href="https://qgis.org" target="_blank">QGIS</a>
+                <span class="link-desc">Open source GIS software.</span>
+              </div>
+            </li>
+            <li class="link-item">
+              <span class="link-icon">🎓</span>
+              <div>
+                <a href="https://learn.arcgis.com" target="_blank">Esri Learning</a>
+                <span class="link-desc">Free learning resources for GIS.</span>
+              </div>
+            </li>
+            <li class="link-item">
+              <span class="link-icon">💼</span>
+              <div>
+                <a href="https://www.linkedin.com/in/ahmetbugraucay" target="_blank">My LinkedIn Profile</a>
+                <span class="link-desc">Experience, skills and professional network.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Embedded Page</h2>
+        <div class="card-body">
+          <iframe src="details.html" height="240" title="About Geomatics Engineering"></iframe>
+        </div>
+      </section>
+    </aside>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Ahmet Buğra Üçay – Web GIS</p>
+  </footer>
+
+</body>
+</html>
